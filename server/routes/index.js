@@ -6,4 +6,5 @@ module.exports = app => {
   }))
 
   app.post('/api/todos', todoController.create)
+  app.get('/api/todos', todoController.list)
 }
