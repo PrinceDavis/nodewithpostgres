@@ -1,5 +1,7 @@
 'use strict'
-const Todo = require('../models').Todo
+const model =  require('../models')
+const Todo = model.Todo
+const TodoItem = model.TodoItem
 module.exports = {
   create(req, res) {
     return Todo
@@ -11,8 +13,16 @@ module.exports = {
   },
   list(req, res) {
     return Todo
-        .all()
-        .then(todos => res.status(200).send(todos))
-        .catch(errors => res.status(400).send(errors))
+      .findAll({
+        include: [{
+          model: TodoItem,
+          as: 'todoItems',
+        }],
+      })
+      .then(todos => res.status(200).send(todos))
+      .catch(err => {
+        console.log(err)
+        res.status(400).send(err)
+      })
   }
 }

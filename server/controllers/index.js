@@ -1,5 +1,5 @@
 'use strict'
-const todos = require('./todo')
 module.exports = {
-  todos
+  todos: require('./todo'),
+  todoItems: require('./todoitems')
 }
